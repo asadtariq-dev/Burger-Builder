@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import React, { useState, useEffect } from "react";
+import { auth } from "../firebase-config";
 import "./Burger.css";
 
 function Burger() {
@@ -7,6 +9,14 @@ function Burger() {
   const [cheese, setCheese] = useState(0);
   const [meat, setMeat] = useState(0);
   const [price, setPrice] = useState(0);
+
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+  }, []);
 
   const addRemoveIngredient = (action, ingredient) => {
     switch (ingredient) {
@@ -154,7 +164,11 @@ function Burger() {
             More
           </button>
         </div>
-        <button className="orderBtn">Order Now</button>
+        {user ? (
+          <button className="orderBtn">Order Now</button>
+        ) : (
+          <button className="orderBtn">Sigin to order</button>
+        )}
       </div>
     </>
   );
