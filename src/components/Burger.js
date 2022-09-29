@@ -1,7 +1,10 @@
 import { onAuthStateChanged } from "firebase/auth";
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { auth } from "../firebase-config";
+import Checkout from "./Checkout";
 import "./Burger.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Burger() {
   const [lettuce, setLettuce] = useState(0);
@@ -11,12 +14,29 @@ function Burger() {
   const [price, setPrice] = useState(0);
 
   const [user, setUser] = useState({});
+  const [burger, setBurger] = useState({
+    ingredients: { lettuce: 0, bacon: 0, cheese: 0, meat: 0 },
+    price: 0,
+  });
+  const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
   }, []);
+
+  useEffect(() => {
+    setBurger({
+      ingredients: {
+        lettuce: lettuce,
+        bacon: bacon,
+        cheese: cheese,
+        meat: meat,
+      },
+      price: price,
+    });
+  }, [price]);
 
   const addRemoveIngredient = (action, ingredient) => {
     switch (ingredient) {
@@ -93,8 +113,16 @@ function Burger() {
     }
     return burger;
   };
+  const handleOrder = () => {
+    setModalShow(true);
+  };
   return (
     <>
+      <Checkout
+        show={modalShow}
+        burger={burger}
+        onHide={() => setModalShow(false)}
+      />
       <div className="burgerIngredients">
         <div className="top"></div>
         {burgerContent()}
@@ -165,9 +193,19 @@ function Burger() {
           </button>
         </div>
         {user ? (
-          <button className="orderBtn">Order Now</button>
+          price ? (
+            <Link
+              onClick={handleOrder}
+              className="orderBtn text-decoration-none"
+              to="/"
+            >
+              ORDER NOW
+            </Link>
+          ) : null
         ) : (
-          <button className="orderBtn">Sigin to order</button>
+          <Link className="orderBtn text-decoration-none" to="/auth">
+            SIGN UP TO ORDER
+          </Link>
         )}
       </div>
     </>
