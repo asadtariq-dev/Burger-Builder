@@ -1,7 +1,8 @@
 .burgerIngredients {
   height: 400px;
   width: 100%;
-  overflow: auto;
+  overflow: scroll;
+  margin-bottom: 200px;
 }
 .burgerIngredients p {
   text-align: center;
@@ -11,11 +12,9 @@ h2 {
 }
 .ingredientsBlock {
   background-color: #f4b46c;
-  margin: 15% auto 0;
   display: table;
   width: 100%;
-  border-radius: 3px;
-  padding: 20px;
+  padding: 30px;
   text-align: center;
 }
 .ingredientsBlock p {
@@ -40,6 +39,11 @@ h2 {
   width: 95px;
   margin: 0 5px;
 }
+.ingredientBtn:disabled{
+  background:  #533618;
+  color: #ccc;
+  cursor: no-drop;
+}
 .orderBtn {
   border: 0;
   font-weight: bold;
@@ -53,6 +57,11 @@ h2 {
   padding: 15px 30px;
   -webkit-box-shadow: 2px 2px 2px #966909;
   box-shadow: 2px 2px 2px #966909;
+}
+.orderBtn:disabled{
+  background:  #533618;
+  color: #ccc;
+  cursor: no-drop;
 }
 .top {
   background-image: url(../assets/top.png);

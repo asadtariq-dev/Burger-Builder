@@ -1,6 +1,8 @@
 import { onAuthStateChanged } from "firebase/auth";
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { auth } from "../firebase-config";
+import Checkout from "./Checkout";
 import "./Burger.css";
 
 function Burger() {
@@ -11,12 +13,29 @@ function Burger() {
   const [price, setPrice] = useState(0);
 
   const [user, setUser] = useState({});
+  const [burger, setBurger] = useState({
+    ingredients: { lettuce: 0, bacon: 0, cheese: 0, meat: 0 },
+    price: 0,
+  });
+  const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
   }, []);
+
+  useEffect(() => {
+    setBurger({
+      ingredients: {
+        lettuce: lettuce,
+        bacon: bacon,
+        cheese: cheese,
+        meat: meat,
+      },
+      price: price,
+    });
+  }, [price]);
 
   const addRemoveIngredient = (action, ingredient) => {
     switch (ingredient) {
@@ -93,8 +112,16 @@ function Burger() {
     }
     return burger;
   };
+  const handleOrder = () => {
+    setModalShow(true);
+  };
   return (
     <>
+      <Checkout
+        show={modalShow}
+        burger={burger}
+        onHide={() => setModalShow(false)}
+      />
       <div className="burgerIngredients">
         <div className="top"></div>
         {burgerContent()}
@@ -109,6 +136,7 @@ function Burger() {
           <button
             onClick={() => addRemoveIngredient("remove", "lettuce")}
             className="ingredientBtn"
+            disabled={lettuce < 1}
           >
             Less
           </button>
@@ -124,6 +152,7 @@ function Burger() {
           <button
             onClick={() => addRemoveIngredient("remove", "bacon")}
             className="ingredientBtn"
+            disabled={bacon < 1}
           >
             Less
           </button>
@@ -139,6 +168,7 @@ function Burger() {
           <button
             onClick={() => addRemoveIngredient("remove", "cheese")}
             className="ingredientBtn"
+            disabled={cheese < 1}
           >
             Less
           </button>
@@ -154,6 +184,7 @@ function Burger() {
           <button
             onClick={() => addRemoveIngredient("remove", "meat")}
             className="ingredientBtn"
+            disabled={meat < 1}
           >
             Less
           </button>
@@ -165,9 +196,22 @@ function Burger() {
           </button>
         </div>
         {user ? (
-          <button className="orderBtn">Order Now</button>
+          <Link
+            style={{ pointerEvents: price === 0 ? "none" : "" }}
+            onClick={handleOrder}
+            className="orderBtn text-decoration-none"
+            to="/"
+          >
+            ORDER NOW
+          </Link>
         ) : (
-          <button className="orderBtn">Sigin to order</button>
+          <Link
+            style={{ pointerEvents: price === 0 ? "none" : "" }}
+            className="orderBtn text-decoration-none"
+            to="/auth"
+          >
+            SIGN UP TO ORDER
+          </Link>
         )}
       </div>
     </>
