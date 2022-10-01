@@ -4,6 +4,7 @@ import Burger from "./components/Burger";
 import Navbar from "./components/Navbar";
 import Order from "./components/Order";
 import Auth from "./components/Auth";
+import OrderList from "./components/OrderList";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
             </Route>
             <Route exact path="/order">
               <Order />
+            </Route>
+            <Route exact path="/orders">
+              <OrderList />
             </Route>
           </Switch>
         </div>

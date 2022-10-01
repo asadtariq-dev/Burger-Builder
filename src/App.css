@@ -53,3 +53,10 @@
 .card{
 background-color: #40a4c8;
 }
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+  background-color: white;
+}

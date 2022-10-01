@@ -29,7 +29,10 @@ function Checkout(props) {
           className="btn btn-primary"
           to={{
             pathname: "/order",
-            state: { burger: props.burger.ingredients },
+            state: {
+              burger: props.burger.ingredients,
+              price: props.burger.price,
+            },
           }}
         >
           Continue
