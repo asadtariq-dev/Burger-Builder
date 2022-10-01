@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { auth } from "../firebase-config";
 import Checkout from "./Checkout";
 import "./Burger.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 function Burger() {
   const [lettuce, setLettuce] = useState(0);
@@ -137,6 +136,7 @@ function Burger() {
           <button
             onClick={() => addRemoveIngredient("remove", "lettuce")}
             className="ingredientBtn"
+            disabled={lettuce < 1}
           >
             Less
           </button>
@@ -152,6 +152,7 @@ function Burger() {
           <button
             onClick={() => addRemoveIngredient("remove", "bacon")}
             className="ingredientBtn"
+            disabled={bacon < 1}
           >
             Less
           </button>
@@ -167,6 +168,7 @@ function Burger() {
           <button
             onClick={() => addRemoveIngredient("remove", "cheese")}
             className="ingredientBtn"
+            disabled={cheese < 1}
           >
             Less
           </button>
@@ -182,6 +184,7 @@ function Burger() {
           <button
             onClick={() => addRemoveIngredient("remove", "meat")}
             className="ingredientBtn"
+            disabled={meat < 1}
           >
             Less
           </button>
@@ -193,17 +196,20 @@ function Burger() {
           </button>
         </div>
         {user ? (
-          price ? (
-            <Link
-              onClick={handleOrder}
-              className="orderBtn text-decoration-none"
-              to="/"
-            >
-              ORDER NOW
-            </Link>
-          ) : null
+          <Link
+            style={{ pointerEvents: price === 0 ? "none" : "" }}
+            onClick={handleOrder}
+            className="orderBtn text-decoration-none"
+            to="/"
+          >
+            ORDER NOW
+          </Link>
         ) : (
-          <Link className="orderBtn text-decoration-none" to="/auth">
+          <Link
+            style={{ pointerEvents: price === 0 ? "none" : "" }}
+            className="orderBtn text-decoration-none"
+            to="/auth"
+          >
             SIGN UP TO ORDER
           </Link>
         )}
