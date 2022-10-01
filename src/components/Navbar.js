@@ -27,11 +27,13 @@ const Navbar = () => {
       <div className="links">
         <Link to="/">Burger Builder</Link>
         {user ? (
-          // eslint-disable-next-line jsx-a11y/anchor-is-valid
-          <a className="text-white" onClick={logout}>
-            {" "}
-            Logout{" "}
-          </a>
+          <>
+            <Link to="/orders">Orders</Link>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <a className="text-white" onClick={logout}>
+              <Link to="/auth">Logout</Link>
+            </a>
+          </>
         ) : (
           <Link to="/auth">Login</Link>
         )}
