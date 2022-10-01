@@ -2,9 +2,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Burger from "./components/Burger";
 import Navbar from "./components/Navbar";
-import Login from "./components/Login";
-import Register from "./components/Register";
 import Order from "./components/Order";
+import Auth from "./components/Auth";
 
 function App() {
   return (
@@ -16,13 +15,10 @@ function App() {
             <Route exact path="/">
               <Burger />
             </Route>
-            <Route path="/auth/login">
-              <Login />
+            <Route exact path="/auth">
+              <Auth />
             </Route>
-            <Route path="/auth/signup">
-              <Register />
-            </Route>
-            <Route path="/order">
+            <Route exact path="/order">
               <Order />
             </Route>
           </Switch>
