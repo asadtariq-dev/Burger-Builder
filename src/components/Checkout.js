@@ -6,13 +6,10 @@ function Checkout(props) {
   return (
     <Modal
       {...props}
-      size="lg"
+      size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Order</Modal.Title>
-      </Modal.Header>
       <Modal.Body>
         <h4>Your Order Details</h4>
         <ul>
@@ -28,10 +25,7 @@ function Checkout(props) {
         <Link
           className="btn btn-primary"
           to={"/order"}
-          state={{
-            burger: props.burger.ingredients,
-            price: props.burger.price,
-          }}
+          state={{ burger: props.burger }}
         >
           Continue
         </Link>
