@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Burger from "./components/Burger";
 import Navbar from "./components/Navbar";
@@ -8,27 +8,19 @@ import OrderList from "./components/OrderList";
 
 function App() {
   return (
-    <Router>
-      <div>
+    <div>
+      <Router>
         <Navbar />
         <div className="burger-container">
-          <Switch>
-            <Route exact path="/">
-              <Burger />
-            </Route>
-            <Route exact path="/auth">
-              <Auth />
-            </Route>
-            <Route exact path="/order">
-              <Order />
-            </Route>
-            <Route exact path="/orders">
-              <OrderList />
-            </Route>
-          </Switch>
+          <Routes>
+            <Route exact path="/" element={<Burger />} />
+            <Route exact path="/auth" element={<Auth />} />
+            <Route exact path="/order" element={<Order />} />
+            <Route exact path="/orders" element={<OrderList />} />
+          </Routes>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </div>
   );
 }
 export default App;
