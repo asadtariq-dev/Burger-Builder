@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -10,7 +10,7 @@ import "./Auth.css";
 import Loader from "./Loader";
 
 function Auth() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [flag, setFlag] = useState("register");
@@ -21,11 +21,9 @@ function Auth() {
     try {
       setLoader(true);
       if (flag === "login") {
-        console.log(email);
-        console.log(password);
         await signInWithEmailAndPassword(auth, email, password).then(() => {
           setLoader(false);
-          history.push("/");
+          navigate("/");
         });
       } else if (flag === "register") {
         await createUserWithEmailAndPassword(auth, email, password).then(() => {
