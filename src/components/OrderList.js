@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getOrders } from "../db";
+import { getOrders } from "../database/db";
 import OrderItem from "./OrderItem";
 import Loader from "./Loader";
 import "../App.css";
