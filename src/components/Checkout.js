@@ -27,12 +27,10 @@ function Checkout(props) {
         <h6>Continue to checkout?</h6>
         <Link
           className="btn btn-primary"
-          to={{
-            pathname: "/order",
-            state: {
-              burger: props.burger.ingredients,
-              price: props.burger.price,
-            },
+          to={"/order"}
+          state={{
+            burger: props.burger.ingredients,
+            price: props.burger.price,
           }}
         >
           Continue
